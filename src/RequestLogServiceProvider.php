@@ -13,7 +13,7 @@ class RequestLogServiceProvider extends ServiceProvider
         ], 'config');
 
         // 发布 Migration
-        if (!class_exists('CreateRequestLogsTable')) {
+        if (! glob(database_path('migrations/*_create_request_logs_table.php'))) {
             $this->publishes([
                 __DIR__ . '/../database/migrations/create_request_logs_table.php' => database_path('migrations/' . date('Y_m_d_His') . '_create_request_logs_table.php')
             ], 'migrations');

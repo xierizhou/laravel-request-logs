@@ -2,7 +2,7 @@
 namespace Rizhou\RequestLog;
 class Helpers
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     /**
      * 根据User Agent提取出设备类型
@@ -60,7 +60,9 @@ class Helpers
 
         $version = self::VERSION;
 
-        return '<script src="' . $url . '?v=' . $version . '"></script>';
+        $host = base64_encode(request()->getSchemeAndHttpHost());
+
+        return '<script src="' . $url . '?v=' . $version . '" data-verify="'.$host.'"></script>';
     }
 
 }

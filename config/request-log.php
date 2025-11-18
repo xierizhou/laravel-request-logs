@@ -18,9 +18,10 @@ return [
     ],
 
     //自定义规则
-    'custom_rule' => function ($request) {
+    /*'custom_rule' => function ($request) {
         // 不记录 UA 包含 bot 的请求
-        //return stripos($request->userAgent() ?? '', 'bot') === false;
-    },
+        return stripos($request->userAgent() ?? '', 'bot') === false;
+    },*/
+    'custom_rule' => null,
 ];
 

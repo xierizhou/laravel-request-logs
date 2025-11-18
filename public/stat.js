@@ -13,7 +13,12 @@
             timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             requestID: getCookie('x_request_id'),
         };
-        var endpoint = '/_log_col';
+        var verify = '';
+        if(document.currentScript.dataset.verify){
+            verify = window.atob(document.currentScript.dataset.verify);
+        }
+        var endpoint = verify + '/_log_col';
+        console.log(endpoint);
         var payload = JSON.stringify(data);
         fetch(endpoint, {
             method: 'POST',
