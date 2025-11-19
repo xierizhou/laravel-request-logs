@@ -23,7 +23,9 @@ class CreateRequestLogsTable extends Migration
             $table->text('user_agent')->nullable();
             $table->string('device',100)->nullable()->index();
             $table->string('crawler',100)->nullable()->index();
+            $table->string('browser',100)->nullable()->index();
             $table->string('referer',191)->nullable();
+            $table->boolean('is_ajax')->default(false)->index(); //true=ajax请求
 
             // 输入参数（JSON 格式）
             $table->json('input')->nullable();

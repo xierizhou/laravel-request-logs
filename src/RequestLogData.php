@@ -40,17 +40,18 @@ class RequestLogData
      */
     public function toArray(): array
     {
-
         return [
             'method'      => $this->request->method(),
             'url'         => $this->path,
             'ip'          => $this->request->ip(),
+            'ipcountry'   => $this->request->header('cf-ipcountry', 'unknown'),
             'host'        => $this->request->getHost(),
             'user_agent'  => $this->request->userAgent(),
             'input'       => $this->request->all(),
             'status_code' => $this->response->getStatusCode(),
             'referer'     => $this->request->headers->get('referer'),
             'language'    => $this->request->headers->get('accept-language'),
+            'is_ajax'     => $this->request->ajax(),
         ];
     }
 

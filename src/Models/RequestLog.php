@@ -14,7 +14,7 @@ class RequestLog extends Model
 
     protected $fillable = [
         'method', 'url', 'ip', 'ipcountry', 'host', 'user_agent', 'input', 'status_code','referer','is_js', 'language', 'screen_width', 'screen_height', 'timezone',
-        'device', 'crawler'
+        'device', 'crawler', 'browser', 'is_ajax'
     ];
 
     protected $casts = [
@@ -42,6 +42,9 @@ class RequestLog extends Model
             $log->device = Helpers::detectDevice($log->user_agent);
             // 根据 user_agent 填充 crawler
             $log->crawler = Helpers::detectCrawler($log->user_agent);
+            // 根据 user_agent 填充 crawler
+            $log->browser = Helpers::detectBrowser($log->user_agent);
+
         });
     }
 
