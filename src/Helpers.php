@@ -2,7 +2,7 @@
 namespace Rizhou\RequestLog;
 class Helpers
 {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     /**
      * 根据User Agent提取出设备类型
@@ -94,25 +94,27 @@ class Helpers
      */
     public static function detectBrowser($userAgent)
     {
+
         $ua = strtolower($userAgent);
 
-        // 常见浏览器关键字（按命中频率排序优化性能）
-        static $browsers = [
-            'chrome',           // 包含 Edge, Opera 的 UA，但优先度最高
-            'safari',           // iPhone/iPad 默认浏览器
-            'firefox',
-            'edge',             // Chromium Edge
-            'msie',             // IE 10 以下
-            'trident',          // IE 11
-            'opera',            // 旧 Opera
-            'opr',              // 新 Opera (Chromium)
+        $map = [
+            'chrome' => 'chrome',
+            'safari' => 'safari',
+            'firefox' => 'firefox',
+            'fxios' => 'firefox',
+            'edge' => 'edge',
+            'msie' => 'msie', //IE 10
+            'trident' => 'trident', //IE 11
+            'opera' => 'opera',
+            'opr' => 'opera',
         ];
 
-        foreach ($browsers as $browser) {
-            if (str_contains($ua, $browser)) {
-                return $browser; // 返回匹配到的浏览器名称
+        foreach ($map as $keyword => $name) {
+            if (str_contains($ua, $keyword)) {
+                return $name;
             }
         }
+
 
         return 'other';
     }
