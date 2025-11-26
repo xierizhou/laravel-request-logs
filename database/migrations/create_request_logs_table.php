@@ -41,6 +41,7 @@ class CreateRequestLogsTable extends Migration
             $table->string('timezone')->nullable(); //时区
 
             $table->timestamps();
+            $table->index('created_at');
         });
     }
 
