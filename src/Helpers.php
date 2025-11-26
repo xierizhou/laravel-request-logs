@@ -2,7 +2,7 @@
 namespace Rizhou\RequestLog;
 class Helpers
 {
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
 
     /**
      * 根据User Agent提取出设备类型
