@@ -19,7 +19,7 @@ class JsLogController
                 'method'      => "GET",
                 'url'         => $request->get('url'),
                 'ip'          => $request->ip(),
-                'ipcountry'   => '',
+                'ipcountry'   => $request->header('cf-ipcountry', 'unknown'),
                 'host'        => $request->get('host'),
                 'user_agent'  => $request->userAgent(),
                 'referer'     => $request->get('referer'),
